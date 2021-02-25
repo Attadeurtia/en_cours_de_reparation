@@ -1,6 +1,0 @@
-gcc version.c -o prog -I/usr/include/SDL2 -D_REENTRANT
--lSDL2
-
-gcc version.c -o prog $(sdl2-config --cflags --libs)
-
-
