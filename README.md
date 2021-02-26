@@ -3,5 +3,4 @@ projet de fin d'année de C
 
 gcc main.c -o prog $(sdl2-config --cflags --libs)
 
-test
 
