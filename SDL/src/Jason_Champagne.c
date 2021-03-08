@@ -1,10 +1,10 @@
 /*
     //GNU/Linux et MacOS
-        > gcc main.c $(sdl2-config --cflags --libs) -o prog
+        > gcc Jason_Champagne.c $(sdl2-config --cflags --libs) -o prog
         > gcc *.c $(sdl2-config --cflags --libs) -o prog
     //Windows
-        > gcc src/main.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2
-        > gcc src/main.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -mwindows
+        > gcc src/Jason_Champagne.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2
+        > gcc src/Jason_Champagne.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -mwindows
 
     //Flags
         SDL_RENDERER_SOFTWARE
