@@ -2,13 +2,15 @@
 #include <stdio.h>
 #include <SDL.h>
 
+
 int const longueur_fenetre = 800;
 int const largeur_fenetre = 450;
 
+  
 int main(int argc, char *argv[])
 {
     SDL_Window *window = NULL;
-    SDL_ * = NULL;
+    SDL_Renderer *renderer = NULL;
     int statut = EXIT_FAILURE;
     SDL_Color orange = {255, 127, 40, 255};
 
@@ -24,41 +26,42 @@ int main(int argc, char *argv[])
                         SDL_WINDOWPOS_UNDEFINED,    //position en y
                         longueur_fenetre,       //taille en largeur 
                         largeur_fenetre,       //taille en hauteur
-                        SDL_WINDOW_RESIZABLE);          //option
+                        SDL_WINDOW_SHOWN /*| SDL_WINDOW_RESIZABLE*/);          //option
     if(NULL == window)
     {
         fprintf(stderr, "Erreur SDL_CreateWindow : %s", SDL_GetError());
         exit(EXIT_FAILURE);
     }
 
-     = SDL_Create(window, -1, SDL__PRESENTVSYNC);
-    if(NULL == rende)
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if(NULL == renderer)
     {
-        fprintf(stderr, "Erreur SDL_Create : %s", SDL_GetError());
+        fprintf(stderr, "Erreur SDL_CreateRenderer : %s", SDL_GetError());
         exit(EXIT_FAILURE);
     }
     
     /* C’est à partir de maintenant que ça se passe. */
-    if(0 != SDL_SetRenderDrawColor(, 127, 127, 127, 127))
+    if(0 != SDL_SetRenderDrawColor(renderer, 127, 127, 127, 127))
     {
         fprintf(stderr, "Erreur SDL_SetRenderDrawColor : %s", SDL_GetError());
         exit(EXIT_FAILURE);
     }
     
-    if(0 != SDL_RenderClear())
+    if(0 != SDL_RenderClear(renderer))
     {
         fprintf(stderr, "Erreur SDL_SetRenderDrawColor : %s", SDL_GetError());
         exit(EXIT_FAILURE);
     }
 
+
     SDL_Rect rectangle = {100, 100, 100, 100};
-    SDL_Rect rectangle2 = {(((longueur_fenetre*2)/3)/2), (largeur_fenetre/10), 50, 50};
+    SDL_Rect rectangle2 = {(((longueur_fenetre*2)/3)/2), (largeur_fenetre/2,5), 300, 150};
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
     SDL_RenderDrawRect(renderer, &rectangle);
     SDL_RenderFillRect(renderer, &rectangle2);
     SDL_RenderPresent(renderer);
-        
+    
     //initialisation des variables 
     SDL_Event event;    //variable qui vérifie ce qui se passe
     int fullscreen = SDL_SetWindowFullscreen(window,0);     //variable pour mettre en fullscreen
@@ -90,6 +93,15 @@ int main(int argc, char *argv[])
                         }
                     }
                     break;
+                case SDL_MOUSEBUTTONDOWN: // Relâchement d'un clique 
+                    printf("Clic en %dx /%dy\n", event.button.x, event.button.y);
+                    if (event.button.button == SDL_BUTTON_LEFT)  {
+                        printf("clique gauche ! \n");
+                    }else if (event.button.button == SDL_BUTTON_MIDDLE){
+                        printf("clique molette ! \n");
+                    }else
+                        printf("clique droit ! \n");               
+                    break;
                 default:
                     break;
             }
@@ -97,7 +109,7 @@ int main(int argc, char *argv[])
     }
 
     //on quitte proprement le programme
-    SDL_Destroy();
+    SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);  
     SDL_Quit();
 
