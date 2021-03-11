@@ -1,0 +1,13 @@
+#ifndef CONSTANTES_H_INCLUED
+#define CONSTANTES_H_INCLUED
+
+#define TAILLE_BLOC 34
+
+enum{HAUT,BAS,GAUCHE,DROITE};
+enum{VIDE,MUR,JOUEUR};
+
+
+
+
+
+#endif
