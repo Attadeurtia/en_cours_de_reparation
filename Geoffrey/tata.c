@@ -1,9 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL.h>
+#define LB 800
 
 
-int const longueur_fenetre = 800;
+int longueur_fenetre = 800;
 int const largeur_fenetre = 450;
 
   
@@ -54,19 +55,33 @@ int main(int argc, char *argv[])
     }
 
 
-    SDL_Rect rectangle = {100, 100, 100, 100};
-    SDL_Rect rectangle2 = {(((longueur_fenetre*2)/3)/2), (largeur_fenetre/2,5), 300, 150};
+    //SDL_Rect rectangle1 = {0, 200, 100, 100}; //modèle rectangles 
+   
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); //couleurs rouge
+    SDL_Rect rectangle;
+    rectangle.x = (longueur_fenetre/2*1.3); 
+    rectangle.y = (largeur_fenetre/3*2);
+    rectangle.w = 100;
+    rectangle.h = 50;
 
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-    SDL_RenderDrawRect(renderer, &rectangle);
+    SDL_Rect rectangle2;
+    rectangle2.x = (longueur_fenetre/2/1.4);
+    rectangle2.y = (largeur_fenetre/3*2);
+    rectangle2.w = 100;
+    rectangle2.h = 50;
+    
+    SDL_RenderFillRect(renderer, &rectangle);
     SDL_RenderFillRect(renderer, &rectangle2);
+
     SDL_RenderPresent(renderer);
+
     
     //initialisation des variables 
     SDL_Event event;    //variable qui vérifie ce qui se passe
     int fullscreen = SDL_SetWindowFullscreen(window,0);     //variable pour mettre en fullscreen
     SDL_bool program_lauched = SDL_TRUE;    //variable pour bloquer la boucle infini
-    
+    int x=0, y=0;
+
     //tant que l'on ne change pas "program_lauched" le programme est executer, sinon, on le ferme proprement
     while (program_lauched)
     {
@@ -94,7 +109,17 @@ int main(int argc, char *argv[])
                     }
                     break;
                 case SDL_MOUSEBUTTONDOWN: // Relâchement d'un clique 
-                    printf("Clic en %dx /%dy\n", event.button.x, event.button.y);
+                    x=event.button.x;  //récupération de la position de la souris
+                    y=event.button.y;
+                    printf("Clic en %d /%d\n", x, y); //affichage des coordonnées souris
+                    if (x>rectangle.x && x<(rectangle.x+rectangle.w) && y>rectangle.y && y<(rectangle.y+rectangle.h))
+                    {
+                        printf("bravo ! \n"); // detection du clique dans le carré
+                    }
+                    if (x>rectangle2.x && x<(rectangle2.x+rectangle2.w) && y>rectangle2.y && y<(rectangle2.y+rectangle2.h))
+                    {
+                        printf("bravo2 ! \n"); // detection du clique dans le carré
+                    }
                     if (event.button.button == SDL_BUTTON_LEFT)  {
                         printf("clique gauche ! \n");
                     }else if (event.button.button == SDL_BUTTON_MIDDLE){
