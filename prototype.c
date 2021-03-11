@@ -25,6 +25,15 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Erreur SDL_CreateWindow : %s", SDL_GetError());
         exit(EXIT_FAILURE);
     }
+  
+  /*
+  Eccrire ton code 
+  
+  
+  
+  
+  
+  */
 
     //initialisation des variables 
     SDL_Event event;    //variable qui vérifie ce qui se passe
