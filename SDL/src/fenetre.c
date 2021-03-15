@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <SDL.h>
 
-//gcc src/matrice.c -o bin/matrice -I include -L lib -lmingw32 -lSDL2main -lSDL2 -mwindows
+//gcc src/fenetre.c -o bin/fenetre -I include -L lib -lmingw32 -lSDL2main -lSDL2 -mwindows
 
 void SDL_ExitWithError(const char* message);
 
@@ -27,8 +27,12 @@ int main(int argc, char* argv[])
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-    if(renderer == NULL)
+    if (renderer == NULL) {
+        SDL_DestroyWindow(window);
         SDL_ExitWithError("Impossible de creer le rendu");
+    }
+
+    SDL_RenderPresent(renderer);
 
     icon = SDL_LoadBMP("src/La bAAnane.bmp");
     SDL_SetWindowIcon(window, icon);
@@ -36,7 +40,7 @@ int main(int argc, char* argv[])
     if (icon == NULL) {
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
-        SDL_ExitWithError("Impossible de creer l'icone");
+        SDL_ExitWithError("Impossible de charger l'image");
     }
 
 
@@ -46,7 +50,7 @@ int main(int argc, char* argv[])
    if (texture == NULL) {
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
-        SDL_ExitWithError("Impossible de creer la texture");
+        SDL_ExitWithError("Impossible de creer l'icone");
     }
 
 
@@ -69,7 +73,7 @@ int main(int argc, char* argv[])
             }
         }
     }
-
+    
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
