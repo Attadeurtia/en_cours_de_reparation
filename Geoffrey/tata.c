@@ -1,11 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL.h>
-#define LB 800
 
-
-int longueur_fenetre = 800;
+int const longueur_fenetre = 800;
 int const largeur_fenetre = 450;
+
 
   
 int main(int argc, char *argv[])
@@ -13,7 +12,7 @@ int main(int argc, char *argv[])
     SDL_Window *window = NULL;
     SDL_Renderer *renderer = NULL;
     int statut = EXIT_FAILURE;
-    SDL_Color orange = {255, 127, 40, 255};
+    //SDL_Color orange = {255, 127, 40, 255};
 
     if (SDL_Init(SDL_INIT_VIDEO) == -1) // Démarrage de la SDL. Si erreur :
     {
@@ -40,9 +39,10 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Erreur SDL_CreateRenderer : %s", SDL_GetError());
         exit(EXIT_FAILURE);
     }
+
     
     /* C’est à partir de maintenant que ça se passe. */
-    if(0 != SDL_SetRenderDrawColor(renderer, 127, 127, 127, 127))
+    if(0 != SDL_SetRenderDrawColor(renderer, 127, 127, 127, 127)) //couleurs grise
     {
         fprintf(stderr, "Erreur SDL_SetRenderDrawColor : %s", SDL_GetError());
         exit(EXIT_FAILURE);
@@ -53,11 +53,12 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Erreur SDL_SetRenderDrawColor : %s", SDL_GetError());
         exit(EXIT_FAILURE);
     }
-
+    
 
     //SDL_Rect rectangle1 = {0, 200, 100, 100}; //modèle rectangles 
    
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); //couleurs rouge
+
     SDL_Rect rectangle;
     rectangle.x = (longueur_fenetre/2*1.3); 
     rectangle.y = (largeur_fenetre/3*2);
@@ -69,11 +70,26 @@ int main(int argc, char *argv[])
     rectangle2.y = (largeur_fenetre/3*2);
     rectangle2.w = 100;
     rectangle2.h = 50;
-    
+
+    // Définition des deux Point 
+    SDL_Point pointA;
+    pointA.x = 300;
+    pointA.y = 200;
+
+    SDL_Point pointB;
+    pointB.x = 350;
+    pointB.y = 250;
+
+    //SDL_RenderClear(renderer);  
+
+    //SDL_RenderDrawLine(renderer, pointA.x, pointA.y, pointB.x, pointB.y);
+
     SDL_RenderFillRect(renderer, &rectangle);
     SDL_RenderFillRect(renderer, &rectangle2);
 
-    SDL_RenderPresent(renderer);
+    SDL_Draw dest SDL_RenderDrawLine(renderer, pointA.x, pointA.y, pointB.x, pointB.y);
+
+//    SDL_RenderPresent(renderer);
 
     
     //initialisation des variables 
@@ -81,8 +97,18 @@ int main(int argc, char *argv[])
     int fullscreen = SDL_SetWindowFullscreen(window,0);     //variable pour mettre en fullscreen
     SDL_bool program_lauched = SDL_TRUE;    //variable pour bloquer la boucle infini
     int x=0, y=0;
-
+    char clavier;
     //tant que l'on ne change pas "program_lauched" le programme est executer, sinon, on le ferme proprement
+    
+    void tata(){
+    //SDL_UpdateWindowSurface(window);
+    SDL_RenderCopy(renderer,pTexture,NULL,&dest);
+    SDL_RenderClear(renderer);
+    //SDL_DestroyRenderer(renderer);
+        SDL_RenderPresent(renderer);
+    }
+    
+    
     while (program_lauched)
     {
         while (SDL_PollEvent(&event)) // Récupération des actions de l'utilisateur
@@ -114,11 +140,11 @@ int main(int argc, char *argv[])
                     printf("Clic en %d /%d\n", x, y); //affichage des coordonnées souris
                     if (x>rectangle.x && x<(rectangle.x+rectangle.w) && y>rectangle.y && y<(rectangle.y+rectangle.h))
                     {
-                        printf("bravo ! \n"); // detection du clique dans le carré
+                        program_lauched = SDL_FALSE;
                     }
                     if (x>rectangle2.x && x<(rectangle2.x+rectangle2.w) && y>rectangle2.y && y<(rectangle2.y+rectangle2.h))
                     {
-                        printf("bravo2 ! \n"); // detection du clique dans le carré
+                        printf("bravo ! \n"); // detection du clique dans le carré
                     }
                     if (event.button.button == SDL_BUTTON_LEFT)  {
                         printf("clique gauche ! \n");
@@ -126,6 +152,26 @@ int main(int argc, char *argv[])
                         printf("clique molette ! \n");
                     }else
                         printf("clique droit ! \n");               
+                    break;
+                case SDL_KEYDOWN: // Relâchement d'un clique
+                    clavier = event.key.keysym.sym;
+                    SDL_Log("+key");
+                    printf("la touche %s est enclanché \n",SDL_GetKeyName(event.key.keysym.sym));
+                    
+                    //if(event.key.keysym.scancode != SDL_GetScancodeFromKey(event.key.keysym.sym))
+                    printf("Physical %s key \n",
+                    SDL_GetScancodeName(event.key.keysym.scancode));
+                    //SDL_GetKeyName(event.key.keysym.sym)
+
+                    if (event.key.keysym.scancode == SDL_SCANCODE_W){// Regarde si le keycode w est enfoncé (la touche W sous un azerty)
+                        SDL_Log("Keycode W"); // Affiche un message
+                        pointA.x =+ 10;
+                        pointA.y =+ 10;
+
+                        pointB.x =+10;
+                        pointB.y =+ 10;
+                        tata();
+                    } 
                     break;
                 default:
                     break;
@@ -140,3 +186,4 @@ int main(int argc, char *argv[])
 
     return EXIT_SUCCESS;
 }
+
