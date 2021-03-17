@@ -45,6 +45,8 @@ int main(int argc, char *argv[])
         SDL_ExitWithError("Impossible de dessiner un rectangle");
 
     SDL_RenderPresent(renderer);
+*/
+
 
 
 
@@ -64,22 +66,10 @@ int main(int argc, char *argv[])
 
     position.x=positionJoueur.x*TAILLE_BLOC;
     position.y=positionJoueur.y*TAILLE_BLOC;
-*/
-SDL_RenderPresent(renderer);
-image = SDL_LoadBMP("img/robot1.bmp");
-    if(image == NULL) {
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        SDL_ExitWithError("Impossible de charger l'image");
-    }
-    texture = SDL_CreateTextureFromSurface(renderer, image);
-    SDL_FreeSurface(image);
 
-    if(texture == NULL) {
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        SDL_ExitWithError("Impossible de creer la texture");
-    }
+
+
+
 
 
 
@@ -103,12 +93,9 @@ image = SDL_LoadBMP("img/robot1.bmp");
         }
     }
 
-
-
-
     /*------------------------------------------------------------*/
 
-
+    SDL_RenderPresent(renderer);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
