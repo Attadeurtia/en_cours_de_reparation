@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL.h>
+#include "admin_SDL.h"
 
-//gcc src/fenetre.c -o bin/fenetre -I include -L lib -lmingw32 -lSDL2main -lSDL2 -mwindows
+//gcc src/matrice.c -o bin/matrice -I include -L lib -lmingw32 -lSDL2main -lSDL2 -mwindows
 
-void SDL_ExitWithError(const char* message);
+
 
 int main(int argc, char* argv[])
 {
@@ -13,10 +14,11 @@ int main(int argc, char* argv[])
     SDL_Renderer* renderer = NULL;
     SDL_Surface* icon = NULL;
     SDL_Texture* texture = NULL;
+    SDL_Texture* sdltexture = NULL;
+    SDL_Surface* screen = NULL;
 
     //Lancement SDL
-    if (SDL_Init(SDL_INIT_VIDEO) != 0)
-        SDL_ExitWithError("Initialisation SDL");
+    SDL_initialisation();
 
 
 
@@ -53,6 +55,35 @@ int main(int argc, char* argv[])
         SDL_ExitWithError("Impossible de creer l'icone");
     }
 
+
+
+
+
+
+   /* screen = SDL_CreateRGBSurface(0, 400, 400, 32,255,255,255,255);
+
+
+
+    if (screen == NULL) {
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_ExitWithError("Impossible de creer la surface");
+    }
+    
+
+    sdltexture = SDL_CreateTextureFromSurface(renderer, screen);
+    SDL_FreeSurface(screen);
+
+    if (sdltexture == NULL) {
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_ExitWithError("Impossible de creer la texture");
+    }
+
+    */
+
+
+
     SDL_RenderPresent(renderer);
 
     SDL_bool program_launched = SDL_TRUE;
@@ -81,11 +112,4 @@ int main(int argc, char* argv[])
 
     return EXIT_SUCCESS;
 
-}
-
-void SDL_ExitWithError(const char* message)
-{
-    SDL_Log("ERREUR : %s > %s\n", message, SDL_GetError());
-    SDL_Quit();
-    exit(EXIT_FAILURE);
 }
