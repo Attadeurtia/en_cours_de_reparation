@@ -2,18 +2,15 @@
 #include <stdio.h>
 #include <SDL.h>
 
-void SDL_ExitWithError(const char *message)
-{
-    SDL_Log("ERREUR : %s > %s\n", message, SDL_GetError());
-    SDL_Quit();
-    exit(EXIT_FAILURE);
-}
-
+int const longueur_fenetre = 800;
+int const largeur_fenetre = 450;
+  
 int main(int argc, char *argv[])
 {
-
     SDL_Window *window = NULL;
     SDL_Renderer *renderer = NULL;
+    int statut = EXIT_FAILURE;
+    SDL_Color orange = {255, 127, 40, 255};
 
     if (SDL_Init(SDL_INIT_VIDEO) == -1) // Démarrage de la SDL. Si erreur :
     {
@@ -22,30 +19,66 @@ int main(int argc, char *argv[])
     }
 
     //création de la fenêtre
-      /*window =*/ SDL_CreateWindowAndRenderer(800, 600, 0, &window, &renderer);          //option
+    window = SDL_CreateWindow("Ma première application SDL2",  //nom de la fenetre 
+                        SDL_WINDOWPOS_UNDEFINED,    //position en x
+                        SDL_WINDOWPOS_UNDEFINED,    //position en y
+                        longueur_fenetre,       //taille en largeur 
+                        largeur_fenetre,       //taille en hauteur
+                        SDL_WINDOW_SHOWN /*| SDL_WINDOW_RESIZABLE*/);          //option
+    if(NULL == window)
+    {
+        fprintf(stderr, "Erreur SDL_CreateWindow : %s", SDL_GetError());
+        exit(EXIT_FAILURE);
+    }
 
-      //if(SDL_CreateWindowAndRenderer(800, 600, 0, &window, &renderer) != 0)
-        //SDL_ExitWithError("Impossible de creer la denetre et le rendu");
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if(NULL == renderer)
+    {
+        fprintf(stderr, "Erreur SDL_CreateRenderer : %s", SDL_GetError());
+        exit(EXIT_FAILURE);
+    }
+    
+    /* C’est à partir de maintenant que ça se passe. */
+    if(0 != SDL_SetRenderDrawColor(renderer, 127, 127, 127, 127))
+    {
+        fprintf(stderr, "Erreur SDL_SetRenderDrawColor : %s", SDL_GetError());
+        exit(EXIT_FAILURE);
+    }
+    
+    if(0 != SDL_RenderClear(renderer))
+    {
+        fprintf(stderr, "Erreur SDL_SetRenderDrawColor : %s", SDL_GetError());
+        exit(EXIT_FAILURE);
+    }
 
-      SDL_Rect rectangle;
-      rectangle.x = 300;
-      rectangle.y = 300;
-      rectangle.w = 200;
-      rectangle.h = 120;
 
-      if(SDL_SetRenderDrawColor(renderer, 255, 255, 12, SDL_ALPHA_OPAQUE) != 0)
-            SDL_ExitWithError("Impossible de changer la couleur");
+    //SDL_Rect rectangle1 = {0, 200, 100, 100}; //modèle rectangles 
+   
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); //couleurs rouge
+    SDL_Rect rectangle;
+    rectangle.x = (longueur_fenetre/2*1.3); 
+    rectangle.y = (largeur_fenetre/3*2);
+    rectangle.w = 100;
+    rectangle.h = 50;
 
-      if(SDL_RenderDrawRect(renderer, &rectangle) != 0)      //SDL_RenderFillRect dessine un rectangle rempli
-            SDL_ExitWithError("Impossible de dessiner un rectangle");
+    SDL_Rect rectangle2;
+    rectangle2.x = (longueur_fenetre/2/1.4);
+    rectangle2.y = (largeur_fenetre/3*2);
+    rectangle2.w = 100;
+    rectangle2.h = 50;
+    
+    SDL_RenderFillRect(renderer, &rectangle);
+    SDL_RenderFillRect(renderer, &rectangle2);
 
+    SDL_RenderPresent(renderer);
 
-
+    
     //initialisation des variables 
     SDL_Event event;    //variable qui vérifie ce qui se passe
     int fullscreen = SDL_SetWindowFullscreen(window,0);     //variable pour mettre en fullscreen
     SDL_bool program_lauched = SDL_TRUE;    //variable pour bloquer la boucle infini
-    
+    int x=0, y=0;
+
     //tant que l'on ne change pas "program_lauched" le programme est executer, sinon, on le ferme proprement
     while (program_lauched)
     {
@@ -71,6 +104,25 @@ int main(int argc, char *argv[])
                             SDL_SetWindowFullscreen(window,0);
                         }
                     }
+                    break;
+                case SDL_MOUSEBUTTONDOWN: // Relâchement d'un clique 
+                    x=event.button.x;  //récupération de la position de la souris
+                    y=event.button.y;
+                    printf("Clic en %d /%d\n", x, y); //affichage des coordonnées souris
+                    if (x>rectangle.x && x<(rectangle.x+rectangle.w) && y>rectangle.y && y<(rectangle.y+rectangle.h))
+                    {
+                        printf("bravo ! \n"); // detection du clique dans le carré
+                    }
+                    if (x>rectangle2.x && x<(rectangle2.x+rectangle2.w) && y>rectangle2.y && y<(rectangle2.y+rectangle2.h))
+                    {
+                        printf("bravo2 ! \n"); // detection du clique dans le carré
+                    }
+                    if (event.button.button == SDL_BUTTON_LEFT)  {
+                        printf("clique gauche ! \n");
+                    }else if (event.button.button == SDL_BUTTON_MIDDLE){
+                        printf("clique molette ! \n");
+                    }else
+                        printf("clique droit ! \n");               
                     break;
                 default:
                     break;

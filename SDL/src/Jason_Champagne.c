@@ -34,6 +34,8 @@
         }
 
 */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL.h>
@@ -57,6 +59,7 @@ int main(int argc, char *argv[])
     //Création fenêtre + rendu
     if(SDL_CreateWindowAndRenderer(800, 600, 0, &window, &renderer) != 0)
         SDL_ExitWithError("Impossible de creer la fenetre et le rendu");
+
 
     //if(SDL_SetWindowFullscreen(window, SDL_TRUE) < 0)
        // SDL_ExitWithError("Erreur lors du passage en mode plein ecran");
@@ -159,4 +162,4 @@ void SDL_ExitWithError(const char *message)
     SDL_Log("ERREUR : %s > %s\n", message, SDL_GetError());
     SDL_Quit();
     exit(EXIT_FAILURE);
-}
+}  */
