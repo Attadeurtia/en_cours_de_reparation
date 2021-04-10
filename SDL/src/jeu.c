@@ -8,6 +8,10 @@
 #include "jeu.h"
 #include "fenetre.h"
 
+enum{HAUT, BAS, GAUCHE, DROITE};
+enum{VIDE, MUR, MORTY};
+SDL_Rect rectangle_pers;
+
 void afficher_personnage(SDL_Window* window, SDL_Renderer* renderer) {
 
     SDL_Texture* pers_text = NULL;
@@ -32,7 +36,7 @@ void afficher_personnage(SDL_Window* window, SDL_Renderer* renderer) {
         SDL_ExitWithError("Impossible de creer le personnage");
     }
 
-    SDL_Rect rectangle_pers;
+    
 
     if (SDL_QueryTexture(pers_text, NULL, NULL, &rectangle_pers.w, &rectangle_pers.h) != 0)
     {
@@ -41,13 +45,37 @@ void afficher_personnage(SDL_Window* window, SDL_Renderer* renderer) {
         SDL_ExitWithError("Impossible de creer le rectangle");
     }
 
-    rectangle_pers.x = (800 - rectangle_pers.w) / 2;
-    rectangle_pers.y = (450 - rectangle_pers.w) / 2;
+    rectangle_pers.x = 0;
+    rectangle_pers.y = 0;
 
     if (SDL_RenderCopy(renderer, pers_text, NULL, &rectangle_pers) != 0)
     {
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         SDL_ExitWithError("Impossible d'afficher la texture");
+    }
+}
+
+
+
+void deplacer(SDL_Event event) {
+
+    switch (event.key.keysym.sym) {
+
+        case SDLK_LEFT:
+            rectangle_pers.x -= 10;
+            break;
+
+        case SDLK_RIGHT:
+            rectangle_pers.x += 10;
+            break;
+
+        case SDLK_UP:
+            rectangle_pers.y -= 10;
+            break;
+
+        case SDLK_DOWN:
+            rectangle_pers.y += 10;
+             break;
     }
 }
