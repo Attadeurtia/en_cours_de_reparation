@@ -8,11 +8,8 @@
 #include "jeu.h"
 #include "fenetre.h"
 
-enum{HAUT, BAS, GAUCHE, DROITE};
-enum{VIDE, MUR, MORTY};
-SDL_Rect rectangle_pers;
 
-void afficher_personnage(SDL_Window* window, SDL_Renderer* renderer) {
+void afficher_personnage(SDL_Window* window, SDL_Renderer* renderer, SDL_Rect rectangle_pers) {
 
     SDL_Texture* pers_text = NULL;
     SDL_Surface* pers_img = NULL;
@@ -45,8 +42,6 @@ void afficher_personnage(SDL_Window* window, SDL_Renderer* renderer) {
         SDL_ExitWithError("Impossible de creer le rectangle");
     }
 
-    rectangle_pers.x = 0;
-    rectangle_pers.y = 0;
 
     if (SDL_RenderCopy(renderer, pers_text, NULL, &rectangle_pers) != 0)
     {
@@ -58,24 +53,34 @@ void afficher_personnage(SDL_Window* window, SDL_Renderer* renderer) {
 
 
 
-void deplacer(SDL_Event event) {
+void deplacer(SDL_Event event, SDL_Rect* rectangle_pers) {
 
-    switch (event.key.keysym.sym) {
+
+        switch (event.key.keysym.sym) {
 
         case SDLK_LEFT:
-            rectangle_pers.x -= 10;
+            if (rectangle_pers->x > 0) {
+                rectangle_pers->x -= 10;
+            }
             break;
 
         case SDLK_RIGHT:
-            rectangle_pers.x += 10;
+            if (rectangle_pers->x < 766) {
+                rectangle_pers->x += 10;
+            }
             break;
 
         case SDLK_UP:
-            rectangle_pers.y -= 10;
+            if (rectangle_pers->y > 0) {
+                rectangle_pers->y -= 10;
+            }
             break;
 
         case SDLK_DOWN:
-            rectangle_pers.y += 10;
-             break;
-    }
+            if (rectangle_pers->y < 416) {
+                rectangle_pers->y += 10;
+            }
+            break;
+        }
+    
 }

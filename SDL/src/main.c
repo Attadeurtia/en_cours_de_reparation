@@ -18,6 +18,10 @@ int main(int argc, char* argv[])
     SDL_Window* window = NULL;
     SDL_Renderer* renderer = NULL;
 
+    SDL_Rect rectangle_pers;
+    rectangle_pers.x = 1;
+    rectangle_pers.y = 1;
+
     //Lancement SDL
     SDL_initialisation();
 
@@ -42,7 +46,7 @@ int main(int argc, char* argv[])
 
     fenetre(window, renderer);
     
-    afficher_personnage(window, renderer);
+    afficher_personnage(window, renderer, rectangle_pers);
 
     SDL_RenderPresent(renderer);
 
@@ -61,7 +65,9 @@ int main(int argc, char* argv[])
                 break;
 
             case SDL_KEYDOWN:
-                deplacer(event);
+                deplacer(event, &rectangle_pers);
+                fenetre(window, renderer);
+                afficher_personnage(window, renderer, rectangle_pers);
                 SDL_RenderPresent(renderer);
                 break;
 
