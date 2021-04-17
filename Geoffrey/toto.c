@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <SDL.h>
 
+
+
+
 int const longueur_fenetre = 800;
 int const largeur_fenetre = 450;
 
