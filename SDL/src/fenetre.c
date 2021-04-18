@@ -17,7 +17,7 @@ void fenetre(SDL_Window* window, SDL_Renderer* renderer)
     SDL_Surface* icon = NULL;
     SDL_Texture* texture = NULL;
 
-    
+
 
 
     icon = SDL_LoadBMP("src/La bAAnane.bmp");
@@ -53,4 +53,3 @@ void fenetre(SDL_Window* window, SDL_Renderer* renderer)
 
 
 }
-

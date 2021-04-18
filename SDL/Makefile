@@ -7,18 +7,18 @@ all: bin/prog
 bin/prog: obj/main.o obj/admin_SDL.o obj/jeu.o obj/fenetre.o
 	gcc obj/main.o obj/admin_SDL.o obj/jeu.o  obj/fenetre.o -o bin/prog $(FLAGS)
 
-obj/admin_SDL.o: src/admin_SDL.c src/admin_SDL.h src/jeu.h src/fenetre.h 
+obj/admin_SDL.o: src/admin_SDL.c src/admin_SDL.h src/jeu.h src/fenetre.h
 	gcc src/admin_SDL.c -c -o obj/admin_SDL.o $(FLAGS)
 
-obj/main.o: src/main.c src/admin_SDL.h src/jeu.h src/fenetre.h 
+obj/main.o: src/main.c src/admin_SDL.h src/jeu.h src/fenetre.h
 	gcc src/main.c -c -o obj/main.o $(FLAGS)
 
-obj/jeu.o: src/jeu.c src/admin_SDL.h src/jeu.h src/fenetre.h 
+obj/jeu.o: src/jeu.c src/admin_SDL.h src/jeu.h src/fenetre.h
 	gcc src/jeu.c -c -o obj/jeu.o $(FLAGS)
 
-obj/fenetre.o: src/fenetre.c src/admin_SDL.h src/jeu.h src/fenetre.h 
+obj/fenetre.o: src/fenetre.c src/admin_SDL.h src/jeu.h src/fenetre.h
 	gcc src/fenetre.c -c -o obj/fenetre.o $(FLAGS)
 
-clean: 
+clean:
 	rm obj/*.o
 	rm bin/prog

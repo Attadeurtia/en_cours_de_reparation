@@ -33,7 +33,7 @@ void afficher_personnage(SDL_Window* window, SDL_Renderer* renderer, SDL_Rect re
         SDL_ExitWithError("Impossible de creer le personnage");
     }
 
-    
+
 
     if (SDL_QueryTexture(pers_text, NULL, NULL, &rectangle_pers.w, &rectangle_pers.h) != 0)
     {
@@ -82,5 +82,5 @@ void deplacer(SDL_Event event, SDL_Rect* rectangle_pers) {
             }
             break;
         }
-    
+
 }
