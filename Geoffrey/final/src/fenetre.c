@@ -18,6 +18,8 @@ void fenetre(SDL_Window* window, SDL_Renderer* renderer)
     SDL_Surface* icon = NULL;
     SDL_Texture* texture = NULL;
 
+    int toutsepassebien = 1;
+
     
 
 
@@ -51,6 +53,8 @@ void fenetre(SDL_Window* window, SDL_Renderer* renderer)
 
     if (SDL_RenderFillRect(renderer, &rectangle) != 0)
         SDL_ExitWithError("Impossible de dessiner un rectangle");
+
+    
 
 
 }
