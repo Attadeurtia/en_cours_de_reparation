@@ -17,20 +17,7 @@ void fenetre(SDL_Window* window, SDL_Renderer* renderer)
     SDL_Surface* icon = NULL;
     SDL_Texture* texture = NULL;
 
-    int height = 800;
-    int width = 450;
 
-    window = SDL_CreateWindow("[EN COURS] DE REP@RATION", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, height, width, 0);
-
-    if (window == NULL)
-        SDL_ExitWithError("Impossible de creer la fenêtre");
-
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-    if (renderer == NULL) {
-        SDL_DestroyWindow(window);
-        SDL_ExitWithError("Impossible de creer le rendu");
-    }
 
 
     icon = SDL_LoadBMP("src/La bAAnane.bmp");
@@ -64,28 +51,5 @@ void fenetre(SDL_Window* window, SDL_Renderer* renderer)
     if (SDL_RenderFillRect(renderer, &rectangle) != 0)
         SDL_ExitWithError("Impossible de dessiner un rectangle");
 
-    
-
-    SDL_bool program_launched = SDL_TRUE;
-
-    while (program_launched) {
-        SDL_Event event;
-
-        while (SDL_PollEvent(&event))
-        {
-            switch (event.type)
-            {
-            case SDL_QUIT:
-                program_launched = SDL_FALSE;
-                break;
-
-            default:
-                break;
-            }
-        }
-    }
-
-
 
 }
-
