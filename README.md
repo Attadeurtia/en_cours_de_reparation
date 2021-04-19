@@ -1,14 +1,9 @@
 # en_cours_de_reparation
 projet de fin d'année de C
-```
-git add *
-git commit * -m "blabla"
-git push
 
 
+Retrouvez dans le dossier Jeu, la version la plus aboutie du jeu avec un dossier qui comprend la version compilable sous linux et l'autre sous windows.
 
-git rm "nomdufichier.type" //supprimer un fichier ( ne pas oublier de commit ensuite avant de push)
-```
-gcc main.c -o prog $(sdl2-config --cflags --libs)
+Les rubriques personnelles de travail sont Geoffrey, Pierre et SDL(Maël).
 
-
+ On y retrouve les spites du personnage dans le dossier sprite.
