@@ -9,19 +9,25 @@
 #include "fenetre.h"
 #include "menu.h"
 
+/**
+ *\file fenetre.c 
+ * \brief Création de la fenêtre de jeu
+ * \author Pierre Maël Geoffrey
+ * \version 1.0
+ * \date 19/04/2021
+*/
 
 
+/// Création de la fenêtre :
+///
+/// Ajout d'une icône de fenêtre. \n
+/// Elaboration d'un rectangle vide servant de support aux autres calques. 
 
 
 void fenetre(SDL_Window* window, SDL_Renderer* renderer)
 {
     SDL_Surface* icon = NULL;
     SDL_Texture* texture = NULL;
-
-    int toutsepassebien = 1;
-
-    
-
 
     icon = SDL_LoadBMP("src/La bAAnane.bmp");
     SDL_SetWindowIcon(window, icon);

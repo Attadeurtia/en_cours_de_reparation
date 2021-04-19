@@ -9,15 +9,29 @@
 #include "fenetre.h"
 #include "menu.h"
 
+/**
+ *\file main.c 
+ * \brief Programme principal
+ * \author Pierre Maël Geoffrey
+ * \version 1.0
+ * \date 19/04/2021
+*/
+
+/// Main principal :
+///
+/// Initialisation des variables telles que la hauteur et la largeur, nécessaires à la taille de la fenêtre. Ensuite initialisation de chaque rectangle que ce soit pour les boutons, le personnage et le rendu. \n 
+/// Création d'une fenêtre et d'un rendu. \n
+/// Appel des fonctions des autres fichiers. \n
+/// Condition pour garder la fenêtre ouverte, attente des événements résultants du joueur. 
 
 //gcc src/main.c -o bin/main -I include -L lib -lmingw32 -lSDL2main -lSDL2 -mwindows
 
-
-
 int main(int argc, char* argv[])
 {
+    
     int const height = 800;
     int const width = 450;
+
 
     SDL_Window* window = NULL;
     SDL_Renderer* renderer = NULL;
@@ -105,7 +119,6 @@ int main(int argc, char* argv[])
                             break;
                         }
                     }
-                    //////
                 }
                 if (x > rectangle_quit.x && x<(rectangle_quit.x + rectangle_quit.w) && y>rectangle_quit.y && y < (rectangle_quit.y + rectangle_quit.h))
                 {

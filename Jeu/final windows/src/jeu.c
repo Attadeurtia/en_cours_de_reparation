@@ -9,6 +9,21 @@
 #include "fenetre.h"
 #include "menu.h"
 
+/**
+ *\file jeu.c 
+ * \brief Gestion du personnage
+ * \author Pierre Maël Geoffrey
+ * \version 1.0
+ * \date 19/04/2021
+*/
+
+/// Gestion du personnage :
+///
+/// Téléchargement du sprite du personnage inséré dans un rectangle.
+
+
+
+
 void afficher_personnage(SDL_Window* window, SDL_Renderer* renderer, SDL_Rect rectangle_pers) {
 
     SDL_Texture* pers_text = NULL;
@@ -51,7 +66,9 @@ void afficher_personnage(SDL_Window* window, SDL_Renderer* renderer, SDL_Rect re
     }
 }
 
-
+/// Déplacement :
+///
+/// Reconnaissance des touches du joueur.
 
 void deplacer(SDL_Event event, SDL_Rect* rectangle_pers) {
 

@@ -9,6 +9,22 @@
 #include "fenetre.h"
 #include "menu.h"
 
+/**
+ *\file menu.c 
+ * \brief Création du menu de jeu
+ * \author Pierre Maël Geoffrey
+ * \version 1.0
+ * \date 19/04/2021
+*/
+
+
+/// Création du menu :
+///
+/// Téléchargement de l'image de fond du menu. \n
+/// Elaboration de deux rectangles dans lesquels ont été insérés les images des boutons "restart" et "quit"
+
+
+
 void menu(SDL_Window* window, SDL_Renderer* renderer, SDL_Rect rectangle_restart, SDL_Rect rectangle_quit) {
 
     int const longueur_fenetre = 800;
@@ -31,10 +47,7 @@ void menu(SDL_Window* window, SDL_Renderer* renderer, SDL_Rect rectangle_restart
     SDL_Rect fenetre_surface = { 0,0,longueur_fenetre , largeur_fenetre };
 
     SDL_RenderCopy(renderer, fond_Texture, NULL, &fenetre_surface); // Copie du sprite grâce au SDL_Renderer
-
-
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); //couleurs rouge
-
 
 
     SDL_RenderFillRect(renderer, &rectangle_restart);
