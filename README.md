@@ -6,4 +6,4 @@ Retrouvez dans le dossier Jeu, la version la plus aboutie du jeu avec un dossier
 
 Les rubriques personnelles de travail sont Geoffrey, Pierre et SDL(Maël).
 
- On y retrouve les spites du personnage dans le dossier sprite.
+ On y retrouve les sprites du personnage dans le dossier sprite.
